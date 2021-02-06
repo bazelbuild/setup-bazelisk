@@ -15,10 +15,8 @@ See [action.yml](action.yml)
 Basic:
 ```yaml
 steps:
-- uses: actions/checkout@master
-- uses: mishas/setup-bazelisk@v1
-  with:
-    bazelisk-version: '1.x'
+- uses: actions/checkout@v2
+- uses: mishas/setup-bazelisk-action@v1
 - name: Mount bazel cache  # Optional
   uses: actions/cache@v1
   with:
