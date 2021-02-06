@@ -1,0 +1,10 @@
+name: 'Setup Bazelisk'
+description: 'Set up Bazelisk and add it to the PATH.'
+author: 'Misha Seltzer'
+inputs:
+  bazelisk-version:
+    description: 'The Bazelisk version to download (if necessary) and use. Supports semver spec and ranges.'
+    default: '1.x'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

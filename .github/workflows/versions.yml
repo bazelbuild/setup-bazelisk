@@ -1,0 +1,35 @@
+name: Validate 'setup-bazelisk'
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  setup-versions:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        bazelisk: [1.7.4, 1.6, 1]
+        bazel: [4.0.0, 3.7.2, 3.5]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: setup-bazelisk ${{ matrix.bazelisk }}
+        uses: ./
+        with:
+          bazelisk-version: ${{ matrix.bazelisk }}
+
+      - name: verify bazelisk
+        run: __tests__/verify-bazelisk.sh ${{ matrix.bazelisk }}
+        shell: bash
+        env:
+          USE_BAZEL_VERSION: ${{ matrix.bazel }}
+
