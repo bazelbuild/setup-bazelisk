@@ -17,7 +17,7 @@ jobs:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
         bazelisk: [1.7.4, 1.6, 1]
-        bazel: [4.0.0, 3.7.2, 3.5]
+        bazel: [4.0.0, 3.7.2, 3.5.0]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
