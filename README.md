@@ -1,9 +1,7 @@
 # setup-bazelisk
 Set up your GitHub Actions workflow with a specific version of Baelisk
 
-<p align="left">
-  <a href="https://github.com/mishas/setup-bazelisk-action/actions"><img alt="versions status" src="https://github.com/mishas/setup-bazelisk-action/workflows/bazelisk-versions/badge.svg"></a>
-</p>
+![Validate 'setup-bazelisk'](https://github.com/mishas/setup-bazelisk-action/workflows/Validate%20'setup-bazelisk'/badge.svg)
 
 This action sets up Bazelisk for use in actions by:
 
