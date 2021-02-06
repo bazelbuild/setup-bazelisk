@@ -22,7 +22,7 @@ steps:
 - name: Mount bazel cache  # Optional
   uses: actions/cache@v1
   with:
-    path: "/home/runner/.cache/bazel"
+    path: "~/.cache/bazel"
     key: bazel
 - run: bazel build //...
 ```
