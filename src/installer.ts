@@ -55,8 +55,12 @@ async function cacheBazelisk(
     'https://github.com/bazelbuild/bazelisk/releases/download';
   const downloadUrl: string = `${downloadPrefix}/${info.tag_name}/${osFileName}`;
   core.info(`Acquiring ${info.tag_name} from ${downloadUrl}`);
-  const auth = `token ${token}`
-  const downloadPath: string = await tc.downloadTool(downloadUrl, undefined, auth);
+  const auth = `token ${token}`;
+  const downloadPath: string = await tc.downloadTool(
+    downloadUrl,
+    undefined,
+    auth
+  );
 
   core.info('Adding to the cache ...');
   fs.chmodSync(downloadPath, '755');
@@ -104,7 +108,7 @@ async function findMatch(
 
 async function getVersionsFromDist(token: string): Promise<IBazeliskVersion[]> {
   const octokit = github.getOctokit(token);
-  const { data: response } = await octokit.repos.listReleases({
+  const {data: response} = await octokit.repos.listReleases({
     owner: 'bazelbuild',
     repo: 'bazelisk'
   });
