@@ -1,4 +1,5 @@
 import * as core from '@actions/core';
+import * as github from '@actions/github';
 import * as hc from '@actions/http-client';
 import * as semver from 'semver';
 import * as tc from '@actions/tool-cache';
@@ -17,7 +18,10 @@ export interface IBazeliskVersion {
   assets: IBazeliskAsset[];
 }
 
-export async function getBazelisk(versionSpec: string): Promise<string> {
+export async function getBazelisk(
+  versionSpec: string,
+  token: string
+): Promise<string> {
   const toolPath: string = tc.find('bazelisk', versionSpec);
 
   if (toolPath) {
@@ -33,24 +37,26 @@ export async function getBazelisk(versionSpec: string): Promise<string> {
     osFileName = 'bazelisk-windows-amd64.exe';
   }
 
-  const info = await findMatch(versionSpec, osFileName);
+  const info = await findMatch(versionSpec, osFileName, token);
   if (!info) {
     throw new Error(
       `Unable to find Bazelisk version '${versionSpec}' for platform ${osPlat}.`
     );
   }
-  return await cacheBazelisk(info, osFileName);
+  return await cacheBazelisk(info, osFileName, token);
 }
 
 async function cacheBazelisk(
   info: IBazeliskVersion,
-  osFileName: string
+  osFileName: string,
+  token: string
 ): Promise<string> {
   const downloadPrefix: string =
     'https://github.com/bazelbuild/bazelisk/releases/download';
   const downloadUrl: string = `${downloadPrefix}/${info.tag_name}/${osFileName}`;
   core.info(`Acquiring ${info.tag_name} from ${downloadUrl}`);
-  const downloadPath: string = await tc.downloadTool(downloadUrl);
+  const auth = `token ${token}`
+  const downloadPath: string = await tc.downloadTool(downloadUrl, undefined, auth);
 
   core.info('Adding to the cache ...');
   fs.chmodSync(downloadPath, '755');
@@ -66,10 +72,11 @@ async function cacheBazelisk(
 
 async function findMatch(
   versionSpec: string,
-  osFileName: string
+  osFileName: string,
+  token: string
 ): Promise<IBazeliskVersion | undefined> {
   let versions = new Map<string, IBazeliskVersion>();
-  let bazeliskVersions = await getVersionsFromDist();
+  let bazeliskVersions = await getVersionsFromDist(token);
 
   bazeliskVersions.forEach((bazeliskVersion: IBazeliskVersion) => {
     const hasRelevantAsset: boolean = bazeliskVersion.assets.some(
@@ -95,15 +102,13 @@ async function findMatch(
   return versions.get(version);
 }
 
-async function getVersionsFromDist(): Promise<IBazeliskVersion[]> {
-  // TODO - Consider using @actions/github package for this.
-  let dataUrl = 'https://api.github.com/repos/bazelbuild/bazelisk/releases';
-  let httpClient = new hc.HttpClient('setup-bazelisk', [], {
-    allowRetries: true,
-    maxRetries: 3
+async function getVersionsFromDist(token: string): Promise<IBazeliskVersion[]> {
+  const octokit = github.getOctokit(token);
+  const { data: response } = await octokit.repos.listReleases({
+    owner: 'bazelbuild',
+    repo: 'bazelisk'
   });
-  let response = await httpClient.getJson<IBazeliskVersion[]>(dataUrl);
-  return response.result || [];
+  return response || [];
 }
 
 // Copied from @actions/tool-cache.

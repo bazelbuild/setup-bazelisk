@@ -5,6 +5,9 @@ inputs:
   bazelisk-version:
     description: 'The Bazelisk version to download (if necessary) and use. Supports semver spec and ranges.'
     default: '1.x'
+  token:
+    description: Used to query bazelisk releases.  Since there's a default, this is typically not supplied by the user.
+    default: ${{ github.token }}
 runs:
   using: 'node12'
   main: 'dist/index.js'

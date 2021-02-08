@@ -5,9 +5,10 @@ const cachedir = require('cachedir');
 
 export async function run() {
   try {
-    let versionSpec = core.getInput('bazelisk-version');
+    const versionSpec = core.getInput('bazelisk-version');
+    const token = core.getInput('token');
 
-    const installDir = await installer.getBazelisk(versionSpec);
+    const installDir = await installer.getBazelisk(versionSpec, token);
     core.addPath(installDir);
     core.info('Added bazelisk to the path');
 
