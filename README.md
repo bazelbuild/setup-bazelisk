@@ -18,7 +18,7 @@ steps:
 - uses: actions/checkout@v2
 - uses: mishas/setup-bazelisk-action@v1
 - name: Mount bazel cache  # Optional
-  uses: actions/cache@v1
+  uses: actions/cache@v2
   with:
     path: "~/.cache/bazel"
     key: bazel
