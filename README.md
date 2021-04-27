@@ -1,5 +1,5 @@
 # setup-bazelisk
-Set up your GitHub Actions workflow with a specific version of Baelisk
+Set up your GitHub Actions workflow with a specific version of Bazelisk
 
 ![Validate 'setup-bazelisk'](https://github.com/bazelbuild/setup-bazelisk/workflows/Validate%20'setup-bazelisk'/badge.svg)
 
