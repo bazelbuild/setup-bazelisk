@@ -25,6 +25,18 @@ steps:
 - run: bazel build //...
 ```
 
+# Known issues on Windows
+* This action doesn't work with PowerShell. Make sure to have `shell: bash` in you `run:` steps. ([#3](https://github.com/bazelbuild/setup-bazelisk/issues/3))
+* Windows removes one of the slashes (`/`) when two are present (`bazel test //tests/...` becomes `bazel test /tests/...` and fails). ([#4](https://github.com/bazelbuild/setup-bazelisk/issues/4))  
+  As a workaround, don't have any prefix `//`. Since all runs start at WORKSPACE dir, it should work all the same.
+
+Full workaround example on windows:
+```yaml
+- name: Run tests
+  run: bazel test tests/...
+  shell: bash
+```
+
 # License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
