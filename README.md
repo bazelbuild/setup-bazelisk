@@ -1,6 +1,8 @@
 # setup-bazelisk
 Set up your GitHub Actions workflow with a specific version of Bazelisk
 
+Note that GitHub Actions includes Bazelisk by default as of <https://github.com/actions/virtual-environments/pull/490> so this setup is not necessary unless you want to customize the Bazelisk version.
+
 ![Validate 'setup-bazelisk'](https://github.com/bazelbuild/setup-bazelisk/workflows/Validate%20'setup-bazelisk'/badge.svg)
 
 This action sets up Bazelisk for use in actions by:
