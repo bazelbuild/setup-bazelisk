@@ -109,15 +109,6 @@ function getVersionsFromDist(token) {
             repo: 'bazelisk'
         });
         return response || [];
-        /*
-        let dataUrl = 'https://api.github.com/repos/bazelbuild/bazelisk/releases';
-        let httpClient = new hc.HttpClient('setup-bazelisk', [], {
-          allowRetries: true,
-          maxRetries: 3
-        });
-        let response = await httpClient.getJson<IBazeliskVersion[]>(dataUrl);
-        return response.result || [];
-        */
     });
 }
 // Copied from @actions/tool-cache.
