@@ -1,4 +1,4 @@
-# setup-bazelisk
+# setup-bazelisk v2
 Set up your GitHub Actions workflow with a specific version of Bazelisk
 
 Note that GitHub Actions includes Bazelisk by default as of <https://github.com/actions/virtual-environments/pull/490> so this setup is not necessary unless you want to customize the Bazelisk version, or are running Bazel inside a container.
@@ -10,6 +10,11 @@ This action sets up Bazelisk for use in actions by:
 - optionally downloading and caching a version of Bazelisk by version and adding to PATH
 - setting up cache for downloaded Bazel versions
 
+# What's new
+
+- Updated to the node16 runtime by default
+  - This requires a minimum [Actions Runner](https://github.com/actions/runner/releases/tag/v2.285.0) version of v2.285.0 to run, which is by default available in GHES 3.4 or later.
+
 # Usage
 
 See [action.yml](action.yml)
@@ -17,10 +22,10 @@ See [action.yml](action.yml)
 Basic:
 ```yaml
 steps:
-- uses: actions/checkout@v2
-- uses: bazelbuild/setup-bazelisk@v1
+- uses: actions/checkout@v3
+- uses: bazelbuild/setup-bazelisk@v2
 - name: Mount bazel cache  # Optional
-  uses: actions/cache@v2
+  uses: actions/cache@v3
   with:
     path: "~/.cache/bazel"
     key: bazel
