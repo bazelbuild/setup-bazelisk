@@ -22,10 +22,10 @@ See [action.yml](action.yml)
 Basic:
 ```yaml
 steps:
-- uses: actions/checkout@v2
+- uses: actions/checkout@v3
 - uses: bazelbuild/setup-bazelisk@v2
 - name: Mount bazel cache  # Optional
-  uses: actions/cache@v2
+  uses: actions/cache@v3
   with:
     path: "~/.cache/bazel"
     key: bazel
