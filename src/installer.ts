@@ -31,7 +31,7 @@ export async function getBazelisk(
 
   core.info(`Attempting to download ${versionSpec}...`);
 
-  // Possible values are 'aix', 'darwin', 'freebsd','linux', 'openbsd', 'sunos' and 'win32'.
+  // Possible values are 'aix', 'darwin', 'freebsd', 'linux', 'openbsd', 'sunos' and 'win32'.
   // Bazelisk filenames use 'darwin', 'linux' and 'windows'.
   let osPlatform: string = os.platform();
   if (osPlatform == 'win32') {
