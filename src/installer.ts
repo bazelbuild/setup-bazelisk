@@ -31,16 +31,27 @@ export async function getBazelisk(
 
   core.info(`Attempting to download ${versionSpec}...`);
 
-  const osPlat: string = os.platform();
-  let osFileName: string = `bazelisk-${osPlat}-amd64`;
-  if (osPlat == 'win32') {
-    osFileName = 'bazelisk-windows-amd64.exe';
+  // Possible values are 'aix', 'darwin', 'freebsd','linux', 'openbsd', 'sunos' and 'win32'.
+  // Bazelisk filenames use 'darwin', 'linux' and 'windows'.
+  let osPlatform: string = os.platform();
+  if (osPlatform == 'win32') {
+    osPlatform = 'windows';
+  }
+  // Possible values are 'arm', 'arm64', 'ia32', 'mips', 'mipsel', 'ppc', 'ppc64', 's390', 's390x' and 'x64'.
+  // Bazelisk filenames use 'amd64' and 'arm64'.
+  let osArch: string = os.arch();
+  if (osArch == 'x64') {
+    osArch = 'amd64';
+  }
+  let osFileName: string = `bazelisk-${osPlatform}-${osArch}`;
+  if (osPlatform == 'windows') {
+    osFileName = osFileName.concat('.exe');
   }
 
   const info = await findMatch(versionSpec, osFileName, token);
   if (!info) {
     throw new Error(
-      `Unable to find Bazelisk version '${versionSpec}' for platform ${osPlat}.`
+      `Unable to find Bazelisk version '${versionSpec}' for platform ${osPlatform} and arch ${osArch}.`
     );
   }
   return await cacheBazelisk(info, osFileName, token);
