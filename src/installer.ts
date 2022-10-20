@@ -34,9 +34,6 @@ export async function getBazelisk(
   // Possible values are 'aix', 'darwin', 'freebsd', 'linux', 'openbsd', 'sunos' and 'win32'.
   // Bazelisk filenames use 'darwin', 'linux' and 'windows'.
   let osPlatform: string = os.platform();
-  if (osPlatform == 'win32') {
-    osPlatform = 'windows';
-  }
   // Possible values are 'arm', 'arm64', 'ia32', 'mips', 'mipsel', 'ppc', 'ppc64', 's390', 's390x' and 'x64'.
   // Bazelisk filenames use 'amd64' and 'arm64'.
   let osArch: string = os.arch();
@@ -44,8 +41,8 @@ export async function getBazelisk(
     osArch = 'amd64';
   }
   let osFileName: string = `bazelisk-${osPlatform}-${osArch}`;
-  if (osPlatform == 'windows') {
-    osFileName = osFileName.concat('.exe');
+  if (osPlatform == 'win32') {
+    osFileName = `bazelisk-windows-${osArch}.exe`;
   }
 
   const info = await findMatch(versionSpec, osFileName, token);
