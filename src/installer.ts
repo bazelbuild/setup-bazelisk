@@ -116,7 +116,7 @@ async function findMatch(
 
 async function getVersionsFromDist(token: string): Promise<IBazeliskVersion[]> {
   const octokit = github.getOctokit(token);
-  const {data: response} = await octokit.repos.listReleases({
+  const {data: response} = await octokit.rest.repos.listReleases({
     owner: 'bazelbuild',
     repo: 'bazelisk'
   });
