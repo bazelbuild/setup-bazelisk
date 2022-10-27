@@ -19,6 +19,6 @@ export async function run() {
 
     core.info(`Successfully setup bazelisk version ${versionSpec}`);
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed((error as Error).message);
   }
 }
