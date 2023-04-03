@@ -38,6 +38,6 @@
     "@types/semver": "^7.3.12",
     "@vercel/ncc": "^0.36.1",
     "prettier": "^2.8.7",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.3"
   }
 }
