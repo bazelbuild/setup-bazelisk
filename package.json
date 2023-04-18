@@ -32,7 +32,7 @@
     "@actions/http-client": "^2.1.0",
     "@actions/tool-cache": "^2.0.1",
     "cachedir": "^2.3.0",
-    "semver": "^7.3.8"
+    "semver": "^7.4.0"
   },
   "devDependencies": {
     "@types/semver": "^7.3.12",
