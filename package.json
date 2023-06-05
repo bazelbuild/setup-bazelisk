@@ -32,10 +32,10 @@
     "@actions/http-client": "^2.1.0",
     "@actions/tool-cache": "^2.0.1",
     "cachedir": "^2.3.0",
-    "semver": "^7.5.0"
+    "semver": "^7.5.1"
   },
   "devDependencies": {
-    "@types/semver": "^7.3.12",
+    "@types/semver": "^7.5.0",
     "@vercel/ncc": "^0.36.1",
     "prettier": "^2.8.8",
     "typescript": "^5.1.3"
