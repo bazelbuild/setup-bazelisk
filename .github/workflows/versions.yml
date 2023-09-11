@@ -19,7 +19,7 @@ jobs:
         bazelisk: [1.7.4, 1.6, 1]
         bazel: [4.0.0, 3.7.2, 3.5.0, 5.1.0]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: setup-bazelisk ${{ matrix.bazelisk }}
         uses: ./
