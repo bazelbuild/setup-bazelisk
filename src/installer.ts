@@ -94,6 +94,7 @@ async function findMatch(
 ): Promise<IBazeliskVersion | undefined> {
   try {
     if (versionSpec.indexOf('x') === -1 && versionSpec.split(".").length === 3) {
+      core.warning("versionSpec: " + versionSpec)
       let tag_name = versionSpec;
       if (versionSpec.indexOf('v') !== 0) {
         tag_name = 'v' + tag_name;
@@ -108,7 +109,7 @@ async function findMatch(
         assets: [
           {
             name: osFileName,
-            browser_download_url: ''
+            browser_download_url: downloadUrl
           }
         ]
       };
