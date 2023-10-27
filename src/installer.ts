@@ -92,25 +92,29 @@ async function findMatch(
   osFileName: string,
   token: string
 ): Promise<IBazeliskVersion | undefined> {
-  if (versionSpec.indexOf('x') === -1) {
-    let tag_name = versionSpec;
-    if (versionSpec.indexOf('v') !== 0) {
-      tag_name = 'v' + tag_name;
+  try {
+    if (versionSpec.indexOf('x') === -1 && versionSpec.split(".").length === 3) {
+      let tag_name = versionSpec;
+      if (versionSpec.indexOf('v') !== 0) {
+        tag_name = 'v' + tag_name;
+      }
+      const downloadPrefix: string =
+        'https://github.com/bazelbuild/bazelisk/releases/download';
+      const downloadUrl: string = `${downloadPrefix}/${tag_name}/${osFileName}`;
+      return {
+        tag_name: 'v' + versionSpec,
+        draft: false,
+        prerelease: false,
+        assets: [
+          {
+            name: osFileName,
+            browser_download_url: ''
+          }
+        ]
+      };
     }
-    const downloadPrefix: string =
-      'https://github.com/bazelbuild/bazelisk/releases/download';
-    const downloadUrl: string = `${downloadPrefix}/${tag_name}/${osFileName}`;
-    return {
-      tag_name: 'v' + versionSpec,
-      draft: false,
-      prerelease: false,
-      assets: [
-        {
-          name: osFileName,
-          browser_download_url: ''
-        }
-      ]
-    };
+  } catch (e) {
+    core.warning("check version fail: " + e)
   }
   let versions = new Map<string, IBazeliskVersion>();
   let bazeliskVersions = await getVersionsFromDist(token);
