@@ -64,11 +64,16 @@ async function cacheBazelisk(
   const downloadUrl: string = `${downloadPrefix}/${info.tag_name}/${osFileName}`;
   core.info(`Acquiring ${info.tag_name} from ${downloadUrl}`);
   const auth = `token ${token}`;
-  const downloadPath: string = await tc.downloadTool(
-    downloadUrl,
-    undefined,
-    auth
-  );
+  let downloadPath: string = "";
+  try {
+    downloadPath = await tc.downloadTool(downloadUrl);
+  } catch (e) {
+    downloadPath = await tc.downloadTool(
+      downloadUrl,
+      undefined,
+      auth
+    );
+  }
 
   core.info('Adding to the cache ...');
   fs.chmodSync(downloadPath, '755');
