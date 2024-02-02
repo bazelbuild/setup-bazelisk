@@ -9,7 +9,7 @@ inputs:
     description: Used to query bazelisk releases.  Since there's a default, this is typically not supplied by the user.
     default: ${{ github.token }}
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
 branding:
   icon: 'box'
