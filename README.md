@@ -1,3 +1,11 @@
+> [!IMPORTANT]
+> setup-bazelisk has been superseded by
+> [setup-bazel](https://github.com/bazel-contrib/setup-bazel) and all
+> maintenance and support has ceased. setup-bazelisk will remain on GitHub
+> indefinitely, but will almost certainly stop working someday, so if your
+> GitHub Actions workflows use setup-bazelisk, please migrate them to
+> setup-bazel.
+
 # setup-bazelisk v3
 Set up your GitHub Actions workflow with a specific version of Bazelisk
 
